@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-
-{% block content %}
-{% for item in cart.cart_items.all %}
-  {{ item.product.name }}, {{ item.qty }}, {{ item.product.price }}
-  <br>
-{% endfor %}
-{% endblock %}

@@ -1,7 +1,7 @@
 from traceback import format_exc
 
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, Category, Cart, CartItem
+from .models import Product, Category
 from .forms import ProductForm
 from django.contrib import messages
 
@@ -70,15 +70,3 @@ def delete_product(request, id):
     messages.add_message(request, messages.SUCCESS, 'Product Has Been Deleted Successfully')
     return redirect('home')
 
-
-def cart_view(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    return render(request, 'cart.html', {'cart': cart})
-
-
-
-def add_product_to_cart(request, id ):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    product = Product.objects.get(id=id)
-    CartItem.objects.create(cart=cart, product=product)
-    return redirect('product_detail', id=id)
